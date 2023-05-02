@@ -1,0 +1,60 @@
+.ParksIndexPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+
+  .pagination-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    margin-right: 15rem;
+    gap: 1rem;
+
+    button {
+      width: 5rem;
+    }
+  }
+
+  .parks-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1rem 0 0 0;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .park-element {
+    background-size: cover;
+    background-position: center;
+    height: 10rem;
+    width: 22rem;
+    border-radius: 6px;
+    position: relative;
+
+    .name,
+    .state {
+      margin: 1rem;
+      font-size: 1.2rem;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+
+    .name {
+      font-weight: 400;
+      width: 70%;
+    }
+
+    .state {
+      font-size: 1.1rem;
+      font-weight: 400;
+      height: 30px;
+      width: 100%;
+      top: 0;
+    }
+  }
+}
