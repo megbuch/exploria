@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./ParksIndexPage.scss";
 import axios from "axios";
 
-export default function ParksIndexPage() {
+export default function ParksIndexPage({ parkCode }) {
   const [parksData, setParksData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -70,18 +71,21 @@ export default function ParksIndexPage() {
           Next
         </button>
       </div>
+
       <div className="parks-list">
         {currentParks.map((park) => (
-          <div
-            className="park-element"
-            key={park.id}
-            style={{
-              backgroundImage: `linear-gradient(transparent, #000000ca), url(${park.images[0].url})`,
-            }}
-          >
-            <p className="name">{park.fullName}</p>
-            <p className="state">{park.states.slice(0, 2)}</p>
-          </div>
+          <Link to={`/parks/${park.parkCode}`} key={park.id}>
+            <div
+              className="park-element"
+              key={park.id}
+              style={{
+                backgroundImage: `linear-gradient(transparent, #000000ca), url(${park.images[0].url})`,
+              }}
+            >
+              <p className="name">{park.fullName}</p>
+              <p className="state">{park.states.slice(0, 2)}</p>
+            </div>
+          </Link>
         ))}
       </div>
     </section>
