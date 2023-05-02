@@ -5,6 +5,11 @@
   align-items: center;
   width: 80%;
 
+  a,
+  a:hover {
+    color: var(--white);
+  }
+
   .pagination-buttons {
     width: 100%;
     display: flex;
@@ -34,6 +39,13 @@
     width: 22rem;
     border-radius: 6px;
     position: relative;
+    transition: 100ms ease-out;
+    box-shadow: 0 1px 8px 1px #000000cb;
+
+    &:hover {
+      transform: scale(1.01);
+      box-shadow: 0 2px 8px 2px #000000cb;
+    }
 
     .name,
     .state {
