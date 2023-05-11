@@ -59,8 +59,8 @@ export default function ParkDetailPage() {
           ) : (
             <img src={parkData.images[0].url} />
           )}
-          <p>{parkData.states}</p>
-          <p>{parkData.description}</p>
+          <p>Location: {parkData.states.split(",").join(", ")}</p>
+          <h2>{parkData.description}</h2>
         </div>
       ) : (
         <p>Loading...</p>

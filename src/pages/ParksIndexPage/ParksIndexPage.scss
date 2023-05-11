@@ -10,15 +10,18 @@
     color: var(--white);
   }
 
-  .pagination-buttons {
-    width: 100%;
+  .search-instructions {
     display: flex;
-    justify-content: right;
-    margin-right: 15rem;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 5px;
+    padding: 1rem;
 
-    button {
-      width: 5rem;
+    input {
+      padding: 0.2rem;
+      margin: 0.2rem 0rem;
+      font-size: 2.2rem;
+      font-family: "Libre Franklin", Inter, system-ui, Avenir, Helvetica, Arial,
+        sans-serif;
     }
   }
 
@@ -35,9 +38,8 @@
   .park-element {
     background-size: cover;
     background-position: center;
-    height: 10rem;
-    width: 22rem;
-    border-radius: 6px;
+    height: 15rem;
+    width: 25rem;
     position: relative;
     transition: 100ms ease-out;
     box-shadow: 0 1px 8px 1px #000000cb;
@@ -67,6 +69,8 @@
       height: 30px;
       width: 100%;
       top: 0;
+      display: flex;
+      gap: 2rem;
     }
   }
 }

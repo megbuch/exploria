@@ -3,77 +3,65 @@ import { Link } from "react-router-dom";
 import "./ParksIndexPage.scss";
 import axios from "axios";
 
-export default function ParksIndexPage({ parkCode }) {
+export default function ParksIndexPage() {
   const [parksData, setParksData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
-
-  const parksPerPage = 16;
-
-  const currentParks = parksData.slice(
-    currentPage * parksPerPage,
-    (currentPage + 1) * parksPerPage
-  );
-
-  const fetchParksData = async () => {
-    try {
-      const response = await axios.get(
-        "https://developer.nps.gov/api/v1/parks/",
-        {
-          headers: {
-            "X-Api-Key": import.meta.env.VITE_NPS_API_KEY,
-            "Content-Type": "application/json",
-          },
-          params: {
-            limit: parksPerPage,
-            start: currentPage * parksPerPage,
-          },
-        }
-      );
-
-      setParksData((prevParksData) => [
-        ...prevParksData,
-        ...response.data.data,
-      ]);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
+    const fetchParksData = async () => {
+      try {
+        const response = await axios.get(
+          "https://developer.nps.gov/api/v1/parks/",
+          {
+            headers: {
+              "X-Api-Key": import.meta.env.VITE_NPS_API_KEY,
+              "Content-Type": "application/json",
+            },
+            params: {
+              q: searchQuery,
+            },
+          }
+        );
+
+        setParksData(response.data.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
     fetchParksData();
-  }, [currentPage]);
+  }, [searchQuery]);
 
-  const nextPage = async () => {
-    const nextPageStart = (currentPage + 1) * parksPerPage;
-
-    if (nextPageStart >= parksData.length) {
-      await fetchParksData();
-    }
-
-    setCurrentPage(currentPage + 1);
+  const handleSearchQueryChange = (event) => {
+    setSearchQuery(event.target.value);
   };
 
-  const lastPage = () => {
-    setCurrentPage(currentPage - 1);
-  };
+  const filteredParks = parksData.filter(
+    (park) =>
+      park.fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      park.states.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      park.description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <section className="ParksIndexPage">
-      <h1>All Parks</h1>
-      <div className="pagination-buttons">
-        <button onClick={lastPage} disabled={currentPage === 0}>
-          Prev
-        </button>
-        <button
-          onClick={nextPage}
-          disabled={currentParks.length < parksPerPage}
-        >
-          Next
-        </button>
+      <h1>Explore Parks</h1>
+
+      <div className="search-instructions">
+        <h2>Search by state code, keyword, or park name</h2>
+        <p>
+          Examples: CA, OR, AK, bison, fishing, glacier, desert, Yosemite...
+        </p>
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={handleSearchQueryChange}
+          placeholder="Search"
+        />
       </div>
 
       <div className="parks-list">
-        {currentParks.map((park) => (
+        {filteredParks.map((park) => (
           <Link to={`/parks/${park.parkCode}`} key={park.id}>
             <div
               className="park-element"
@@ -83,7 +71,7 @@ export default function ParksIndexPage({ parkCode }) {
               }}
             >
               <p className="name">{park.fullName}</p>
-              <p className="state">{park.states.slice(0, 2)}</p>
+              <p className="state">{park.states.split(",").join(" ")}</p>
             </div>
           </Link>
         ))}

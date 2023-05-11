@@ -1,18 +1,18 @@
 .ParkDetailPage {
-  padding: 2rem 14rem;
+  max-width: 50vw;
 
   h1 {
     font-size: 4rem;
   }
 
   .carousel {
-    max-width: 80vw;
-    max-height: 70vh;
+    max-width: 50vw;
+    max-height: 50vh;
     margin: 1rem auto;
 
     img {
-      max-width: 80vw;
-      max-height: 70vh;
+      max-width: 50vw;
+      max-height: 50vh;
       object-fit: cover;
     }
   }
