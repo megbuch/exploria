@@ -18,7 +18,7 @@ const fetchParksData = async (searchQuery) => {
     return response.data.data;
   } catch (err) {
     console.log(err);
-    return [];
+    return null;
   }
 };
 
