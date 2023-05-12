@@ -6,18 +6,28 @@ import "./ParksIndexPage.scss";
 export default function ParksIndexPage() {
   const [parksData, setParksData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const parksPerPage = 20;
 
   useEffect(() => {
     const fetchAllParks = async (searchQuery) => {
       const data = await fetchParksData(searchQuery);
-      setParksData(data);
+      setParksData((prevData) => {
+        const newData = [...prevData, ...data];
+        const uniqueData = Array.from(
+          new Set(newData.map((park) => park.id))
+        ).map((id) => newData.find((park) => park.id === id));
+        return uniqueData;
+        //this avoids duplicate keys due to multiple API calls
+      });
     };
 
-    fetchAllParks();
+    fetchAllParks(searchQuery);
   }, [searchQuery]);
 
   const handleSearchQueryChange = (event) => {
     setSearchQuery(event.target.value);
+    setCurrentPage(1);
   };
 
   const filteredParks = parksData.filter(
@@ -29,6 +39,14 @@ export default function ParksIndexPage() {
         activity.name.toLowerCase().includes(searchQuery.toLowerCase())
       )
   );
+
+  const indexOfLastPark = currentPage * parksPerPage;
+  const indexOfFirstPark = indexOfLastPark - parksPerPage;
+  const currentParks = filteredParks.slice(indexOfFirstPark, indexOfLastPark);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <section className="ParksIndexPage">
@@ -47,9 +65,16 @@ export default function ParksIndexPage() {
           placeholder="Search"
         />
       </div>
-
+      <div className="pagination">
+        {currentPage > 1 && (
+          <button onClick={() => paginate(currentPage - 1)}>Prev</button>
+        )}
+        {currentPage < Math.ceil(filteredParks.length / parksPerPage) && (
+          <button onClick={() => paginate(currentPage + 1)}>Next</button>
+        )}
+      </div>
       <div className="parks-list">
-        {filteredParks.map((park) => (
+        {currentParks.map((park) => (
           <Link to={`/parks/${park.parkCode}`} key={park.id}>
             <div
               className="park-element"
