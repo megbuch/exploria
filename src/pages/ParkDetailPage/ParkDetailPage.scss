@@ -1,19 +1,72 @@
 .ParkDetailPage {
-  max-width: 50vw;
-
   h1 {
     font-size: 4rem;
   }
 
+  .location {
+    color: var(--gray);
+    margin-top: -1.5rem;
+  }
+
+  a {
+    cursor: pointer;
+    margin-top: 0.7rem;
+    display: block;
+  }
+
   .carousel {
-    max-width: 50vw;
-    max-height: 50vh;
+    max-width: 100%;
+    max-height: 60vh;
     margin: 1rem auto;
 
     img {
-      max-width: 50vw;
-      max-height: 50vh;
+      max-width: 100%;
+      max-height: 60vh;
       object-fit: cover;
+    }
+  }
+
+  .about {
+    p {
+      font-size: 2rem;
+    }
+  }
+
+  .things-to-do-element {
+    margin: 1rem 0;
+  }
+
+  .pagination {
+    display: flex;
+    gap: 10px;
+
+    .disabled {
+      background-color: var(--gray-transparent);
+      cursor: initial;
+    }
+  }
+
+  .activities-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+
+    li {
+      padding: 2px 10px;
+      border-radius: 4px;
+      color: white;
+      background-color: var(--accent);
+      font-size: 0.9rem;
+    }
+  }
+
+  .plan-your-visit {
+    padding: 1.5rem 2rem;
+    width: 30%;
+    margin: 1rem auto;
+
+    a {
+      margin: 0;
     }
   }
 }

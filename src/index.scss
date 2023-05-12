@@ -2,10 +2,13 @@
 :root {
   --white: #fff;
   --black: #000;
+  --gray: rgb(170, 170, 170);
+  --gray-transparent: rgba(177, 177, 177, 0.062);
   --background: rgb(26, 27, 31);
-  --accent: rgb(255, 140, 125);
-  --accent-transparent: rgba(255, 86, 64, 0.575);
-  --accent-dark: rgb(255, 86, 64);
+  --accent: rgb(109, 123, 255);
+  --accent-bright: rgb(74, 92, 255);
+  --accent-transparent: rgba(85, 102, 255, 0.733);
+  --links: rgb(165, 185, 243);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -23,7 +26,7 @@ body {
   min-height: 100vh;
   font-family: "Libre Franklin", Inter, system-ui, Avenir, Helvetica, Arial,
     sans-serif;
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 300;
   line-height: 1.6;
   background-color: var(--background);
@@ -32,12 +35,13 @@ body {
 
 a {
   font-weight: 500;
-  color: var(--accent);
+  color: var(--links);
   text-decoration: none;
+  text-transform: lowercase;
   transition: 500ms ease-in-out;
 
   &:hover {
-    color: var(--accent-dark);
+    color: var(--accent);
   }
 }
 
@@ -51,15 +55,26 @@ h2 {
   font-weight: 300;
 }
 
+h3 {
+  font-weight: 400;
+  font-size: 1.3rem;
+  margin: 10px 0;
+}
+
+h4 {
+  font-weight: 500;
+}
+
 button {
   border: none;
   border-radius: 8px;
-  padding: 1rem 2rem;
+  padding: 10px 20px;
   font-size: 1rem;
   font-family: inherit;
   background-color: var(--accent-transparent);
   color: var(--white);
   cursor: pointer;
+  text-transform: lowercase;
   transition: 500ms ease-in-out;
 
   a {
@@ -67,7 +82,7 @@ button {
   }
 
   &:hover {
-    background-color: var(--accent-dark);
+    background-color: var(--accent-bright);
 
     a {
       color: white;
@@ -76,10 +91,15 @@ button {
 }
 
 section {
-  width: 100%;
+  width: 60vw;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
   justify-content: center;
   margin: 3rem auto;
+  gap: 3rem;
+}
+
+ul {
+  list-style: none;
 }

@@ -7,9 +7,11 @@ import "slick-carousel/slick/slick-theme.css";
 import "./ParkDetailPage.scss";
 
 export default function ParkDetailPage() {
+  const { parkCode } = useParams();
   const [parkData, setParkData] = useState(null);
   const [thingsToDoData, setThingsToDoData] = useState([]);
-  const { parkCode } = useParams();
+  const [currentPage, setCurrentPage] = useState(0);
+  const [showAllActivities, setShowAllActivities] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,11 +31,32 @@ export default function ParkDetailPage() {
     fetchData();
   }, [parkCode]);
 
+  function handlePrevPage() {
+    setCurrentPage((prevPage) => prevPage - 1);
+  }
+
+  function handleNextPage() {
+    setCurrentPage((prevPage) => prevPage + 1);
+  }
+
+  function toggleShowActivities() {
+    setShowAllActivities(!showAllActivities);
+  }
+
+  const itemsPerPage = 4;
+  const startIndex = currentPage * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentThingsToDo = thingsToDoData
+    ? thingsToDoData.slice(startIndex, endIndex)
+    : [];
+
   return (
-    <section className="ParkDetailPage">
+    <div className="ParkDetailPage">
       {parkData ? (
-        <div>
+        <section>
           <h1>{parkData.fullName}</h1>
+          <p className="location">{parkData.states.split(",").join(", ")}</p>
+
           {parkData.images.length > 1 ? (
             <Slider
               className="carousel"
@@ -50,36 +73,62 @@ export default function ParkDetailPage() {
           ) : (
             <img src={parkData.images[0].url} />
           )}
-          <div>
+
+          <div className="about">
             <h3>About {parkData.name}</h3>
             <p>{parkData.description}</p>
           </div>
           <div>
-            <h3>Location</h3>
-            <p>{parkData.states.split(",").join(", ")}</p>
-          </div>
-          <div>
             <h3>Things To Do</h3>
-            {thingsToDoData ? (
-              thingsToDoData.map((thingToDo) => {
-                return (
-                  <div key={thingToDo.id}>
-                    <h4>{thingToDo.title}</h4>
-                    <p>{thingToDo.shortDescription}</p>
-                  </div>
-                );
-              })
+            {currentThingsToDo.length > 0 ? (
+              <div>
+                <div className="things-to-do-list">
+                  {currentThingsToDo.map((thingToDo) => (
+                    <div className="things-to-do-element" key={thingToDo.id}>
+                      <a href={thingToDo.url} target="_blank">
+                        <h4>{thingToDo.title}</h4>
+                      </a>
+                      <p>{thingToDo.shortDescription}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="pagination">
+                  <button
+                    onClick={handlePrevPage}
+                    disabled={currentPage === 0}
+                    className={currentPage === 0 ? "disabled" : ""}
+                  >
+                    Prev
+                  </button>
+                  <button
+                    onClick={handleNextPage}
+                    disabled={endIndex >= thingsToDoData.length}
+                    className={
+                      endIndex >= thingsToDoData.length ? "disabled" : ""
+                    }
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
             ) : (
               <p>None listed</p>
             )}
           </div>
           <div>
             <h3>Activities</h3>
-            <ul>
-              {parkData.activities.map((activity) => {
-                return <li key={activity.id}>{activity.name}</li>;
-              })}
+            <ul className="activities-list">
+              {showAllActivities
+                ? parkData.activities.map((activity) => {
+                    return <li key={activity.id}>{activity.name}</li>;
+                  })
+                : parkData.activities.slice(0, 5).map((activity) => {
+                    return <li key={activity.id}>{activity.name}</li>;
+                  })}
             </ul>
+            <a onClick={toggleShowActivities}>
+              {showAllActivities ? "Show Less" : "Show More"}
+            </a>
           </div>
           <div>
             <h3>Weather</h3>
@@ -92,18 +141,18 @@ export default function ParkDetailPage() {
               More directions information
             </a>
           </div>
-          <button>
+          <button className="plan-your-visit">
             <a
               href={`https://www.nps.gov/${parkCode}/planyourvisit/index.htm`}
               target="_blank"
             >
-              Plan your visit
+              Plan Your Visit
             </a>
           </button>
-        </div>
+        </section>
       ) : (
         <p>Loading...</p>
       )}
-    </section>
+    </div>
   );
 }
