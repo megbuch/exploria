@@ -15,7 +15,8 @@ const fetchParksData = async (searchQuery) => {
       }
     );
 
-    return response.data.data;
+    const allParks = response.data.data;
+    return allParks;
   } catch (err) {
     console.log(err);
     return null;
@@ -37,8 +38,8 @@ const fetchParkData = async (parkCode) => {
       }
     );
 
-    const parks = response.data.data;
-    const selectedPark = parks.find((park) => park.parkCode === parkCode);
+    const allParks = response.data.data;
+    const selectedPark = allParks.find((park) => park.parkCode === parkCode);
     return selectedPark;
   } catch (err) {
     console.log(err);
@@ -46,4 +47,27 @@ const fetchParkData = async (parkCode) => {
   }
 };
 
-export { fetchParksData, fetchParkData };
+const fetchThingsToDoData = async (parkCode) => {
+  try {
+    const response = await axios.get(
+      "https://developer.nps.gov/api/v1/thingstodo",
+      {
+        headers: {
+          "X-Api-Key": import.meta.env.VITE_NPS_API_KEY,
+          "Content-Type": "application/json",
+        },
+        params: {
+          parkCode: parkCode,
+        },
+      }
+    );
+
+    const thingsToDo = response.data.data;
+    return thingsToDo;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+};
+
+export { fetchParksData, fetchParkData, fetchThingsToDoData };

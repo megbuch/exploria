@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { fetchParkData } from "../../api/api";
+import { fetchParkData, fetchThingsToDoData } from "../../api/api";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -8,15 +8,25 @@ import "./ParkDetailPage.scss";
 
 export default function ParkDetailPage() {
   const [parkData, setParkData] = useState(null);
+  const [thingsToDoData, setThingsToDoData] = useState([]);
   const { parkCode } = useParams();
 
   useEffect(() => {
-    const fetchSinglePark = async (parkCode) => {
-      const data = await fetchParkData(parkCode);
-      setParkData(data);
+    const fetchData = async () => {
+      const fetchParkPromise = fetchParkData(parkCode);
+      const fetchThingsToDoPromise = fetchThingsToDoData(parkCode);
+
+      const [parkData, thingsToDoData] = await Promise.all([
+        fetchParkPromise,
+        fetchThingsToDoPromise,
+      ]);
+
+      setParkData(parkData);
+      setThingsToDoData(thingsToDoData);
+      console.log(thingsToDoData);
     };
 
-    fetchSinglePark(parkCode);
+    fetchData();
   }, [parkCode]);
 
   return (
@@ -47,6 +57,21 @@ export default function ParkDetailPage() {
           <div>
             <h3>Location</h3>
             <p>{parkData.states.split(",").join(", ")}</p>
+          </div>
+          <div>
+            <h3>Things To Do</h3>
+            {thingsToDoData ? (
+              thingsToDoData.map((thingToDo) => {
+                return (
+                  <div key={thingToDo.id}>
+                    <h4>{thingToDo.title}</h4>
+                    <p>{thingToDo.shortDescription}</p>
+                  </div>
+                );
+              })
+            ) : (
+              <p>None listed</p>
+            )}
           </div>
           <div>
             <h3>Activities</h3>

@@ -25,10 +25,10 @@ export default function ParksIndexPage() {
     fetchAllParks(searchQuery);
   }, [searchQuery]);
 
-  const handleSearchQueryChange = (event) => {
+  function handleSearchQueryChange(event) {
     setSearchQuery(event.target.value);
     setCurrentPage(1);
-  };
+  }
 
   const filteredParks = parksData.filter(
     (park) =>
@@ -44,9 +44,9 @@ export default function ParksIndexPage() {
   const indexOfFirstPark = indexOfLastPark - parksPerPage;
   const currentParks = filteredParks.slice(indexOfFirstPark, indexOfLastPark);
 
-  const paginate = (pageNumber) => {
+  function paginate(pageNumber) {
     setCurrentPage(pageNumber);
-  };
+  }
 
   return (
     <section className="ParksIndexPage">
