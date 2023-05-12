@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import { fetchParkData } from "../../api/api";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -10,33 +10,14 @@ export default function ParkDetailPage() {
   const [parkData, setParkData] = useState(null);
   const { parkCode } = useParams();
 
-  const fetchParkData = async () => {
-    try {
-      const response = await axios.get(
-        `https://developer.nps.gov/api/v1/parks/?parkCode=${parkCode}`,
-        {
-          headers: {
-            "X-Api-Key": import.meta.env.VITE_NPS_API_KEY,
-            "Content-Type": "application/json",
-          },
-          params: {
-            parkCode: parkCode,
-          },
-        }
-      );
-      const parks = response.data.data;
-      const selectedPark = parks.find((park) => park.parkCode === parkCode);
-      setParkData(selectedPark);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
-    fetchParkData();
-  }, [parkCode]);
+    const fetchSinglePark = async (parkCode) => {
+      const data = await fetchParkData(parkCode);
+      setParkData(data);
+    };
 
-  console.log(parkData);
+    fetchSinglePark(parkCode);
+  }, [parkCode]);
 
   return (
     <section className="ParkDetailPage">
@@ -52,15 +33,20 @@ export default function ParkDetailPage() {
               slidesToShow={1}
               slidesToScroll={1}
             >
-              {parkData.images.map((image) => {
-                return <img src={image.url} />;
+              {parkData.images.map((image, index) => {
+                return <img src={image.url} key={index} alt={image.altText} />;
               })}
             </Slider>
           ) : (
             <img src={parkData.images[0].url} />
           )}
           <p>Location: {parkData.states.split(",").join(", ")}</p>
-          <h2>{parkData.description}</h2>
+          <p>{parkData.description}</p>
+          <ul>
+            {parkData.activities.map((activity) => {
+              return <li key={activity.id}>{activity.name}</li>;
+            })}
+          </ul>
         </div>
       ) : (
         <p>Loading...</p>

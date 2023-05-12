@@ -1,35 +1,19 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { fetchParksData } from "../../api/api";
 import "./ParksIndexPage.scss";
-import axios from "axios";
 
 export default function ParksIndexPage() {
   const [parksData, setParksData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    const fetchParksData = async () => {
-      try {
-        const response = await axios.get(
-          "https://developer.nps.gov/api/v1/parks/",
-          {
-            headers: {
-              "X-Api-Key": import.meta.env.VITE_NPS_API_KEY,
-              "Content-Type": "application/json",
-            },
-            params: {
-              q: searchQuery,
-            },
-          }
-        );
-
-        setParksData(response.data.data);
-      } catch (err) {
-        console.log(err);
-      }
+    const fetchAllParks = async (searchQuery) => {
+      const data = await fetchParksData(searchQuery);
+      setParksData(data);
     };
 
-    fetchParksData();
+    fetchAllParks();
   }, [searchQuery]);
 
   const handleSearchQueryChange = (event) => {
@@ -40,7 +24,10 @@ export default function ParksIndexPage() {
     (park) =>
       park.fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       park.states.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      park.description.toLowerCase().includes(searchQuery.toLowerCase())
+      park.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      park.activities.some((activity) =>
+        activity.name.toLowerCase().includes(searchQuery.toLowerCase())
+      )
   );
 
   return (
@@ -48,9 +35,10 @@ export default function ParksIndexPage() {
       <h1>Explore Parks</h1>
 
       <div className="search-instructions">
-        <h2>Search by state code, keyword, or park name</h2>
+        <h2>Search by state code, park name, activity, or keyword</h2>
         <p>
-          Examples: CA, OR, AK, bison, fishing, glacier, desert, Yosemite...
+          Examples: CA, OR, AK, Yellowstone, horseback riding, stargazing,
+          glacier, desert..
         </p>
         <input
           type="text"
