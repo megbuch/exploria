@@ -40,13 +40,41 @@ export default function ParkDetailPage() {
           ) : (
             <img src={parkData.images[0].url} />
           )}
-          <p>Location: {parkData.states.split(",").join(", ")}</p>
-          <p>{parkData.description}</p>
-          <ul>
-            {parkData.activities.map((activity) => {
-              return <li key={activity.id}>{activity.name}</li>;
-            })}
-          </ul>
+          <div>
+            <h3>About {parkData.name}</h3>
+            <p>{parkData.description}</p>
+          </div>
+          <div>
+            <h3>Location</h3>
+            <p>{parkData.states.split(",").join(", ")}</p>
+          </div>
+          <div>
+            <h3>Activities</h3>
+            <ul>
+              {parkData.activities.map((activity) => {
+                return <li key={activity.id}>{activity.name}</li>;
+              })}
+            </ul>
+          </div>
+          <div>
+            <h3>Weather</h3>
+            <p>{parkData.weatherInfo}</p>
+          </div>
+          <div>
+            <h3>Directions</h3>
+            <p>{parkData.directionsInfo}</p>
+            <a href={parkData.directionsUrl} target="_blank">
+              More directions information
+            </a>
+          </div>
+          <button>
+            <a
+              href={`https://www.nps.gov/${parkCode}/planyourvisit/index.htm`}
+              target="_blank"
+            >
+              Plan your visit
+            </a>
+          </button>
         </div>
       ) : (
         <p>Loading...</p>

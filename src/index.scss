@@ -3,8 +3,9 @@
   --white: #fff;
   --black: #000;
   --background: rgb(26, 27, 31);
-  --accent: rgb(175, 57, 83);
-  --accent-dark: rgb(151, 26, 53);
+  --accent: rgb(255, 140, 125);
+  --accent-transparent: rgba(255, 86, 64, 0.575);
+  --accent-dark: rgb(255, 86, 64);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -33,10 +34,11 @@ a {
   font-weight: 500;
   color: var(--accent);
   text-decoration: none;
-}
+  transition: 500ms ease-in-out;
 
-a:hover {
-  color: var(--accent-dark);
+  &:hover {
+    color: var(--accent-dark);
+  }
 }
 
 h1 {
@@ -52,17 +54,25 @@ h2 {
 button {
   border: none;
   border-radius: 8px;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+  padding: 1rem 2rem;
+  font-size: 1rem;
   font-family: inherit;
-  background-color: var(--accent);
+  background-color: var(--accent-transparent);
   color: var(--white);
   cursor: pointer;
-  transition: border-color 0.25s;
-}
+  transition: 500ms ease-in-out;
 
-button:hover {
-  background-color: var(--accent-dark);
+  a {
+    color: white;
+  }
+
+  &:hover {
+    background-color: var(--accent-dark);
+
+    a {
+      color: white;
+    }
+  }
 }
 
 section {
