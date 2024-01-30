@@ -14,14 +14,24 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
-    padding: 1rem;
 
-    input {
-      padding: 0.2rem;
-      margin: 0.2rem 0rem;
-      font-size: 2.2rem;
-      font-family: "Libre Franklin", Inter, system-ui, Avenir, Helvetica, Arial,
-        sans-serif;
+    .inputs {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+
+      div {
+        display: flex;
+        flex-direction: column;
+      }
+
+      input {
+        padding: 0.2rem;
+        margin: 0.2rem 0rem;
+        font-size: 1.6rem;
+        font-family: "Libre Franklin", Inter, system-ui, Avenir, Helvetica,
+          Arial, sans-serif;
+      }
     }
   }
 
@@ -29,18 +39,14 @@
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-    margin: 1rem 0 0 0;
     justify-content: center;
     align-items: center;
     width: 100%;
   }
 
   .park-element {
-    background-size: cover;
-    background-position: center;
-    height: 15rem;
+    height: 20rem;
     width: 25rem;
-    position: relative;
     transition: 100ms ease-out;
     box-shadow: 0 1px 8px 1px #000000cb;
 
@@ -49,28 +55,20 @@
       box-shadow: 0 2px 8px 2px #000000cb;
     }
 
-    .name,
-    .state {
-      margin: 1rem;
-      font-size: 1.2rem;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-    }
-
-    .name {
-      font-weight: 400;
-      width: 70%;
-    }
-
-    .state {
-      font-size: 1.1rem;
-      font-weight: 400;
-      height: 30px;
+    img {
       width: 100%;
-      top: 0;
+      height: 70%;
+      object-fit: cover;
+      overflow: hidden;
+    }
+
+    .content {
+      height: 25%;
       display: flex;
-      gap: 2rem;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin: 0 1rem 0 1rem;
     }
   }
 }

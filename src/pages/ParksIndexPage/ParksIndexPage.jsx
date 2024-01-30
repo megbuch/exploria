@@ -58,23 +58,29 @@ export default function ParksIndexPage() {
     <section className="ParksIndexPage">
       <h1>Explore Parks</h1>
       <div className="search-instructions">
-        <h2>Search by park name, biome, activity, etc.</h2>
-        <label htmlFor="stateInput">State</label>
-        <input
-          type="text"
-          value={stateInput}
-          onChange={handleStateFilter}
-          placeholder="ca, wy, ak"
-          name="stateInput"
-        />
-        <label htmlFor="searchInput">Keyword</label>
-        <input
-          type="text"
-          value={keywordInput}
-          onChange={handleKeywordFilter}
-          placeholder="desert, beach, horseback riding, etc."
-          name="keywordInput"
-        />
+        <h2>Search by state and keyword.</h2>
+        <div className="inputs">
+          <div>
+            <input
+              type="text"
+              value={stateInput}
+              onChange={handleStateFilter}
+              placeholder="ca, wy, ak"
+              name="stateInput"
+            />
+            <label htmlFor="stateInput">State</label>
+          </div>
+          <div>
+            <input
+              type="text"
+              value={keywordInput}
+              onChange={handleKeywordFilter}
+              placeholder="desert, beach, horseback riding, etc."
+              name="keywordInput"
+            />
+            <label htmlFor="searchInput">Keyword</label>
+          </div>
+        </div>
       </div>
       <div className="pagination">
         {currentPage > 1 && (
@@ -87,15 +93,16 @@ export default function ParksIndexPage() {
       <div className="parks-list">
         {currentParks.map((park) => (
           <Link to={`/parks/${park.parkCode}`} key={park.id}>
-            <div
-              className="park-element"
-              key={park.id}
-              style={{
-                backgroundImage: `linear-gradient(transparent, #000000ca), url(${park.images[0].url})`,
-              }}
-            >
-              <p className="name">{park.fullName}</p>
-              <p className="state">{park.states.split(",").join(" ")}</p>
+            <div className="park-element" key={park.id}>
+              <img
+                src={park.images[0].url}
+                alt={park.fullName}
+                loading="lazy"
+              />
+              <div className="content">
+                <p className="name">{park.fullName}</p>
+                <p className="state">{park.states.split(",").join(" ")}</p>
+              </div>
             </div>
           </Link>
         ))}
