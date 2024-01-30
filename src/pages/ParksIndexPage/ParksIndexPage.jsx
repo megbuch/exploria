@@ -1,44 +1,50 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { fetchParksData } from "../../api/api";
+import { getParks } from "../../global/api";
 import "./ParksIndexPage.scss";
 
 export default function ParksIndexPage() {
-  const [parksData, setParksData] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [loading, setLoading] = useState([]);
+  const [parks, setParks] = useState([]);
+  const [keywordInput, setKeywordInput] = useState("");
+  const [stateInput, setStateInput] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const parksPerPage = 20;
 
   useEffect(() => {
-    const fetchAllParks = async (searchQuery) => {
-      const data = await fetchParksData(searchQuery);
-      setParksData((prevData) => {
-        const newData = [...prevData, ...data];
-        const uniqueData = Array.from(
-          new Set(newData.map((park) => park.id))
-        ).map((id) => newData.find((park) => park.id === id));
-        return uniqueData;
-        //this avoids duplicate keys due to multiple API calls
-      });
+    setLoading(true);
+    // TODO: Add loading spinner while loading is true
+    const fetchParks = async () => {
+      const data = await getParks();
+      setParks(data);
+      console.log(parks);
     };
+    fetchParks();
+    setLoading(false);
+  }, []);
 
-    fetchAllParks(searchQuery);
-  }, [searchQuery]);
-
-  function handleSearchQueryChange(event) {
-    setSearchQuery(event.target.value);
+  const handleStateFilter = (event) => {
+    setStateInput(event.target.value);
     setCurrentPage(1);
-  }
+  };
 
-  const filteredParks = parksData.filter(
-    (park) =>
-      park.fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      park.states.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      park.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  const handleKeywordFilter = (event) => {
+    setKeywordInput(event.target.value);
+    setCurrentPage(1);
+  };
+
+  const filteredParks = parks.filter((park) => {
+    const matchesState = park.states
+      .toLowerCase()
+      .includes(stateInput.toLowerCase());
+    const matchesSearch =
+      park.fullName.toLowerCase().includes(keywordInput.toLowerCase()) ||
+      park.description.toLowerCase().includes(keywordInput.toLowerCase()) ||
       park.activities.some((activity) =>
-        activity.name.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-  );
+        activity.name.toLowerCase().includes(keywordInput.toLowerCase())
+      );
+    return matchesState && matchesSearch;
+  });
 
   const indexOfLastPark = currentPage * parksPerPage;
   const indexOfFirstPark = indexOfLastPark - parksPerPage;
@@ -51,18 +57,23 @@ export default function ParksIndexPage() {
   return (
     <section className="ParksIndexPage">
       <h1>Explore Parks</h1>
-
       <div className="search-instructions">
-        <h2>Search by state code, park name, activity, or keyword</h2>
-        <p>
-          Examples: CA, OR, AK, Yellowstone, horseback riding, stargazing,
-          glacier, desert..
-        </p>
+        <h2>Search by park name, biome, activity, etc.</h2>
+        <label htmlFor="stateInput">State</label>
         <input
           type="text"
-          value={searchQuery}
-          onChange={handleSearchQueryChange}
-          placeholder="Search"
+          value={stateInput}
+          onChange={handleStateFilter}
+          placeholder="ca, wy, ak"
+          name="stateInput"
+        />
+        <label htmlFor="searchInput">Keyword</label>
+        <input
+          type="text"
+          value={keywordInput}
+          onChange={handleKeywordFilter}
+          placeholder="desert, beach, horseback riding, etc."
+          name="keywordInput"
         />
       </div>
       <div className="pagination">

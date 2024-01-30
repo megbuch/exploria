@@ -1,33 +1,29 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { fetchParkData, fetchThingsToDoData } from "../../api/api";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { getPark, getActivities } from "../../global/api";
 import "./ParkDetailPage.scss";
 
 export default function ParkDetailPage() {
   const { parkCode } = useParams();
-  const [parkData, setParkData] = useState(null);
-  const [thingsToDoData, setThingsToDoData] = useState([]);
+  const [park, setPark] = useState(null);
+  const [activities, setActivities] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [showAllActivities, setShowAllActivities] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      const fetchParkPromise = fetchParkData(parkCode);
-      const fetchThingsToDoPromise = fetchThingsToDoData(parkCode);
-
-      const [parkData, thingsToDoData] = await Promise.all([
-        fetchParkPromise,
-        fetchThingsToDoPromise,
-      ]);
-
-      setParkData(parkData);
-      setThingsToDoData(thingsToDoData);
-      console.log(thingsToDoData);
+      try {
+        const [parkData, activitiesData] = await Promise.all([
+          getPark(parkCode),
+          getActivities(parkCode),
+        ]);
+        setPark(parkData);
+        setActivities(activitiesData);
+      } catch (error) {
+        console.error(error);
+        // TODO: Handle error with a toast
+      }
     };
-
     fetchData();
   }, [parkCode]);
 
@@ -46,49 +42,32 @@ export default function ParkDetailPage() {
   const itemsPerPage = 4;
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentThingsToDo = thingsToDoData
-    ? thingsToDoData.slice(startIndex, endIndex)
+  const currentActivities = activities
+    ? activities.slice(startIndex, endIndex)
     : [];
 
   return (
     <div className="ParkDetailPage">
-      {parkData ? (
+      {park ? (
         <section>
-          <h1>{parkData.fullName}</h1>
-          <p className="location">{parkData.states.split(",").join(", ")}</p>
-
-          {parkData.images.length > 1 ? (
-            <Slider
-              className="carousel"
-              dots={true}
-              infinite={true}
-              speed={500}
-              slidesToShow={1}
-              slidesToScroll={1}
-            >
-              {parkData.images.map((image, index) => {
-                return <img src={image.url} key={index} alt={image.altText} />;
-              })}
-            </Slider>
-          ) : (
-            <img src={parkData.images[0].url} />
-          )}
-
+          <h1>{park.fullName}</h1>
+          <p className="location">{park.states.split(",").join(", ")}</p>
+          {/* TODO Add images. (park.images) */}
           <div className="about">
-            <h3>About {parkData.name}</h3>
-            <p>{parkData.description}</p>
+            <h3>About {park.name}</h3>
+            <p>{park.description}</p>
           </div>
           <div>
             <h3>Things To Do</h3>
-            {currentThingsToDo.length > 0 ? (
+            {currentActivities.length > 0 ? (
               <div>
                 <div className="things-to-do-list">
-                  {currentThingsToDo.map((thingToDo) => (
-                    <div className="things-to-do-element" key={thingToDo.id}>
-                      <a href={thingToDo.url} target="_blank">
-                        <h4>{thingToDo.title}</h4>
+                  {currentActivities.map((activity) => (
+                    <div className="things-to-do-element" key={activity.id}>
+                      <a href={activity.url} target="_blank" rel="noreferrer">
+                        <h4>{activity.title}</h4>
                       </a>
-                      <p>{thingToDo.shortDescription}</p>
+                      <p>{activity.shortDescription}</p>
                     </div>
                   ))}
                 </div>
@@ -102,10 +81,8 @@ export default function ParkDetailPage() {
                   </button>
                   <button
                     onClick={handleNextPage}
-                    disabled={endIndex >= thingsToDoData.length}
-                    className={
-                      endIndex >= thingsToDoData.length ? "disabled" : ""
-                    }
+                    disabled={endIndex >= activities.length}
+                    className={endIndex >= activities.length ? "disabled" : ""}
                   >
                     Next
                   </button>
@@ -119,10 +96,10 @@ export default function ParkDetailPage() {
             <h3>Activities</h3>
             <ul className="activities-list">
               {showAllActivities
-                ? parkData.activities.map((activity) => {
+                ? park.activities.map((activity) => {
                     return <li key={activity.id}>{activity.name}</li>;
                   })
-                : parkData.activities.slice(0, 5).map((activity) => {
+                : park.activities.slice(0, 5).map((activity) => {
                     return <li key={activity.id}>{activity.name}</li>;
                   })}
             </ul>
@@ -132,12 +109,12 @@ export default function ParkDetailPage() {
           </div>
           <div>
             <h3>Weather</h3>
-            <p>{parkData.weatherInfo}</p>
+            <p>{park.weatherInfo}</p>
           </div>
           <div>
             <h3>Directions</h3>
-            <p>{parkData.directionsInfo}</p>
-            <a href={parkData.directionsUrl} target="_blank">
+            <p>{park.directionsInfo}</p>
+            <a href={park.directionsUrl} target="_blank" rel="noreferrer">
               More directions information
             </a>
           </div>
@@ -145,6 +122,7 @@ export default function ParkDetailPage() {
             <a
               href={`https://www.nps.gov/${parkCode}/planyourvisit/index.htm`}
               target="_blank"
+              rel="noreferrer"
             >
               Plan Your Visit
             </a>
