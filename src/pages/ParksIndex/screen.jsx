@@ -4,19 +4,21 @@ import "./styles.scss";
 export default function ParksIndex(props) {
   const {
     loading,
-    currentPage,
-    parksPerPage,
-    filteredParks,
-    displayedParks,
-    onPaginate,
     stateInput,
     keywordInput,
     onInputChange,
+    displayedParks,
+    currentPage,
+    totalPages,
+    onPreviousPage,
+    onNextPage,
   } = props;
 
-  return loading ? (
-    <p>Loading...</p> // TODO: Use loading spinner.
-  ) : (
+  if (loading) {
+    return <p>Loading...</p>; // TODO: Use loading spinner.
+  }
+
+  return (
     <section className="ParksIndex">
       <h1>Explore Parks</h1>
       <div className="search-instructions">
@@ -45,12 +47,8 @@ export default function ParksIndex(props) {
         </div>
       </div>
       <div className="pagination">
-        {currentPage > 1 && (
-          <button onClick={() => onPaginate(currentPage - 1)}>Prev</button>
-        )}
-        {currentPage < Math.ceil(filteredParks.length / parksPerPage) && (
-          <button onClick={() => onPaginate(currentPage + 1)}>Next</button>
-        )}
+        {currentPage > 1 && <button onClick={onPreviousPage}>Prev</button>}
+        {currentPage < totalPages && <button onClick={onNextPage}>Next</button>}
       </div>
       <div className="parks-list">
         {displayedParks.map((park) => (
