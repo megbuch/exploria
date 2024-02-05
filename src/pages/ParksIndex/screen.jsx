@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./styles.scss";
 
-export default function ParksIndex(props) {
+export const ParksIndex = (props) => {
   const {
     loading,
     stateInput,
@@ -69,4 +69,4 @@ export default function ParksIndex(props) {
       </div>
     </section>
   );
-}
+};

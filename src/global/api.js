@@ -3,17 +3,17 @@ import { API_KEY, API_BASE_URL } from "./constants";
 const parksUrl = `${API_BASE_URL}/parks/`;
 const activitiesUrl = `${API_BASE_URL}/thingstodo`;
 
-const getParks = async () => {
+export const getParks = async () => {
   const response = await request(parksUrl, { limit: 1000 });
   return response.data;
 };
 
-const getPark = async (parkCode) => {
+export const getPark = async (parkCode) => {
   const response = await request(parksUrl, { parkCode });
   return response.data;
 };
 
-const getActivities = async (parkCode) => {
+export const getActivities = async (parkCode) => {
   const response = await request(activitiesUrl, { parkCode });
   return response.data;
 };
@@ -42,5 +42,3 @@ const request = async (url, params = {}) => {
     return null;
   }
 };
-
-export { getParks, getPark, getActivities };

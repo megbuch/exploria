@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import "./Navigation.scss";
+import "./styles.scss";
 
-export default function Navigation() {
+export const Navigation = () => {
   return (
     <ul>
       <li>
@@ -12,4 +12,4 @@ export default function Navigation() {
       </li>
     </ul>
   );
-}
+};

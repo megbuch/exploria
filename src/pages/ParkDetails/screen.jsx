@@ -1,7 +1,7 @@
-// import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./styles.scss";
 
-export default function ParkDetails(props) {
+export const ParkDetails = (props) => {
   const {
     loading,
     park,
@@ -13,10 +13,7 @@ export default function ParkDetails(props) {
     onNextPage,
   } = props;
 
-  // const [showAllActivities, setShowAllActivities] = useState(false);
-  // function toggleShowActivities() {
-  //   setShowAllActivities(!showAllActivities);
-  // }
+  const navigate = useNavigate();
 
   if (loading) {
     return <p>Loading...</p>; // TODO: Use loading spinner.
@@ -25,6 +22,13 @@ export default function ParkDetails(props) {
   return (
     <div className="ParkDetails">
       <section>
+        <button
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          Back
+        </button>
         <h1>{park.fullName}</h1>
         <p className="location">{park.states.split(",").join(", ")}</p>
         {/* TODO Add images. (park.images) */}
@@ -32,9 +36,9 @@ export default function ParkDetails(props) {
           <h3>About {park.name}</h3>
           <p>{park.description}</p>
         </div>
-        <div>
-          <h3>Things To Do</h3>
-          {displayedActivities.length > 0 ? (
+        {displayedActivities && (
+          <div>
+            <h3>Things To Do</h3>
             <div>
               <div className="things-to-do-list">
                 {displayedActivities.map((activity) => (
@@ -55,27 +59,19 @@ export default function ParkDetails(props) {
                 )}
               </div>
             </div>
-          ) : (
-            <p>None listed</p>
-          )}
-        </div>
+          </div>
+        )}
         <div>
           <h3>Activities</h3>
           <ul className="activities-list">
-            {park.activities.map((activity) => {
-              return <li key={activity.id}>{activity.name}</li>;
-            })}
-            {/* {showAllActivities
-              ? park.activities.map((activity) => {
-                  return <li key={activity.id}>{activity.name}</li>;
-                })
-              : park.activities.slice(0, 5).map((activity) => {
-                  return <li key={activity.id}>{activity.name}</li>;
-                })} */}
+            {park.activities
+              .sort((a, b) => {
+                return a.name.localeCompare(b.name);
+              })
+              .map((activity) => {
+                return <li key={activity.id}>{activity.name}</li>;
+              })}
           </ul>
-          {/* <a onClick={toggleShowActivities}>
-            {showAllActivities ? "Show Less" : "Show More"}
-          </a> */}
         </div>
         <div>
           <h3>Weather</h3>
@@ -100,4 +96,4 @@ export default function ParkDetails(props) {
       </section>
     </div>
   );
-}
+};

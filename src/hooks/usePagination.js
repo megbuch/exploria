@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 
-const usePagination = (data, itemsPerPage) => {
+export const usePagination = (data, itemsPerPage) => {
   const [currentPage, setCurrentPage] = useState(1);
   const totalItems = data.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -26,5 +26,3 @@ const usePagination = (data, itemsPerPage) => {
     goToPage,
   };
 };
-
-export default usePagination;

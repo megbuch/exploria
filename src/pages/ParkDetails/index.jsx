@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getPark, getActivities } from "../../global/api";
-import usePagination from "../../global/hooks/usePagination";
-import Screen from "./screen";
+import { usePagination } from "../../hooks/usePagination";
+import { ParkDetails as Screen } from "./screen";
 
-export default function ParkDetails() {
+export const ParkDetails = () => {
   const [loading, setLoading] = useState(true);
   const { parkCode } = useParams();
   const [park, setPark] = useState(null);
@@ -12,7 +12,6 @@ export default function ParkDetails() {
 
   useEffect(() => {
     const fetchPark = async () => {
-      console.log(parkCode);
       try {
         const [parkData, activitiesData] = await Promise.all([
           getPark(parkCode),
@@ -52,4 +51,4 @@ export default function ParkDetails() {
       onNextPage={goToNextPage}
     />
   );
-}
+};
