@@ -1,21 +1,13 @@
 import "./styles.scss";
+import { Carousel } from "../../components/Carousel/index";
 
 export const Landing = (props) => {
-  const { loading, featuredParks } = props;
-  if (loading) return <p>Loading...</p>;
+  const { featuredParks } = props;
 
   return (
     <div id="Landing">
+      <Carousel items={featuredParks} isLandingPage={true} />
       <h1>Exploria</h1>
-      {featuredParks.map((park) => {
-        return (
-          <img
-            className="featured-image"
-            key={park.id}
-            src={park.images[0].url}
-          />
-        );
-      })}
     </div>
   );
 };

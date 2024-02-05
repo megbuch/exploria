@@ -1,0 +1,55 @@
+#Carousel {
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  height: 95vh;
+  display: flex;
+
+  .carousel-items {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+
+    .carousel-item {
+      width: 100vw;
+      height: 95vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .park-name {
+        position: absolute;
+        text-transform: uppercase;
+        font-size: 6rem;
+        color: white;
+
+        &:hover {
+          color: var(--accent);
+        }
+      }
+
+      .splash-image {
+        width: 100%;
+        object-fit: cover;
+        object-position: center 60%;
+      }
+    }
+  }
+
+  .carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 2;
+
+    &.prev {
+      left: 10px;
+    }
+
+    &.next {
+      right: 10px;
+    }
+  }
+}

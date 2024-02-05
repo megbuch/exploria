@@ -15,12 +15,18 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  --num-featured-items: 7;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
 }
 
 body {

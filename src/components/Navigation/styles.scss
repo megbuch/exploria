@@ -1,0 +1,12 @@
+#Navigation {
+  position: absolute;
+  top: 0;
+  z-index: 100;
+  margin: 16px 32px;
+
+  ul {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+  }
+}
