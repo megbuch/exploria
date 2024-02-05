@@ -31,12 +31,13 @@ export const ParkDetails = (props) => {
         </button>
         <h1>{park.fullName}</h1>
         <p className="location">{park.states.split(",").join(", ")}</p>
+        {/* <p className="location">{`${park.addresses[0].city}, ${park.addresses[0].stateCode}`}</p> */}
         {/* TODO Add images. (park.images) */}
         <div className="about">
-          <h3>About {park.name}</h3>
+          {/* <h3>About {park.name}</h3> */}
           <p>{park.description}</p>
         </div>
-        {displayedActivities && (
+        {displayedActivities.length > 0 && (
           <div>
             <h3>Things To Do</h3>
             <div>
@@ -76,6 +77,11 @@ export const ParkDetails = (props) => {
         <div>
           <h3>Weather</h3>
           <p>{park.weatherInfo}</p>
+        </div>
+        <div>
+          <h3>Address</h3>
+          <p>{park.addresses[0].line1}</p>
+          <p>{`${park.addresses[0].city}, ${park.addresses[0].stateCode} ${park.addresses[0].postalCode}`}</p>
         </div>
         <div>
           <h3>Directions</h3>
