@@ -12,6 +12,7 @@ export const Navigation = () => {
           <Link to="/parks">Parks</Link>
         </li>
       </ul>
+      <p>Exploria</p>
     </div>
   );
 };

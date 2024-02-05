@@ -20,13 +20,16 @@ export const Carousel = ({ items, isLandingPage }) => {
     const carouselItem = (
       <div className="carousel-item" key={index}>
         {isLandingPage && (
-          <Link
-            key={item.parkCode}
-            to={`/parks/${item.parkCode}`}
-            className="park-name"
-          >
-            {item.name}
-          </Link>
+          <div className="overlay">
+            <p className="explore">Explore</p>
+            <Link
+              key={item.parkCode}
+              to={`/parks/${item.parkCode}`}
+              className="park-name"
+            >
+              {item.name}
+            </Link>
+          </div>
         )}
 
         <img

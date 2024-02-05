@@ -7,7 +7,6 @@ export const Landing = (props) => {
   return (
     <div id="Landing">
       <Carousel items={featuredParks} isLandingPage={true} />
-      <h1>Exploria</h1>
     </div>
   );
 };

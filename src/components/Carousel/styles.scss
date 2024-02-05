@@ -2,7 +2,7 @@
   position: relative;
   overflow: hidden;
   width: 100vw;
-  height: 95vh;
+  height: 100vh;
   display: flex;
 
   .carousel-items {
@@ -11,15 +11,25 @@
 
     .carousel-item {
       width: 100vw;
-      height: 95vh;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
 
-      .park-name {
+      .overlay {
         position: absolute;
-        text-transform: uppercase;
+        line-height: 1;
+      }
+
+      .explore {
+        font-size: 2rem;
+        text-transform: lowercase;
+        margin: 0 0 0 16px;
+      }
+
+      .park-name {
         font-size: 6rem;
+        text-transform: uppercase;
         color: white;
 
         &:hover {
