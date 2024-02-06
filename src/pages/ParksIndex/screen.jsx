@@ -19,7 +19,7 @@ export const ParksIndex = (props) => {
   }
 
   return (
-    <section className="ParksIndex">
+    <div id="ParksIndex">
       <h1>Explore Parks</h1>
       <div className="search-instructions">
         <h2>Search by state and keyword.</h2>
@@ -67,6 +67,6 @@ export const ParksIndex = (props) => {
           </Link>
         ))}
       </div>
-    </section>
+    </div>
   );
 };

@@ -1,9 +1,9 @@
-import "../../global/index.scss";
 import { Routes, Route } from "react-router-dom";
 import { Navigation } from "../../components/Navigation/index";
 import { Landing } from "../Landing/index";
 import { ParksIndex } from "../ParksIndex/index";
 import { ParkDetails } from "../ParkDetails/index";
+import "../../global/styles.scss";
 
 export const App = () => {
   return (

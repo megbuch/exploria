@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getPark, getActivities } from "../../global/api";
-import { usePagination } from "../../hooks/usePagination";
+import { usePagination } from "../../global/hooks/usePagination";
 import { ParkDetails as Screen } from "./screen";
 
 export const ParkDetails = () => {

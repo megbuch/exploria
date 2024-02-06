@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useParks } from "../../hooks/useParks";
-import { usePagination } from "../../hooks/usePagination";
+import { useParks } from "../../global/hooks/useParks";
+import { usePagination } from "../../global/hooks/usePagination";
 import { ParksIndex as Screen } from "./screen";
 
 export const ParksIndex = () => {

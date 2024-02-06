@@ -8,14 +8,9 @@ import haleakalaImage from "../assets/haleakala.jpg";
 
 export const featuredParks = [
   {
-    name: "Yosemite",
-    image: yosemiteImage,
-    parkCode: "yose",
-  },
-  {
-    name: "Grand Teton",
-    image: grandTetonImage,
-    parkCode: "grte",
+    name: "Haleakalā",
+    image: haleakalaImage,
+    parkCode: "hale",
   },
   {
     name: "Joshua Tree",
@@ -23,23 +18,28 @@ export const featuredParks = [
     parkCode: "jotr",
   },
   {
-    name: "Zion",
-    image: zionImage,
-    parkCode: "zion",
-  },
-  {
-    name: "Denali",
-    image: denaliImage,
-    parkCode: "dena",
-  },
-  {
     name: "Grand Canyon",
     image: grandCanyonImage,
     parkCode: "grca",
   },
   {
-    name: "Haleakalā",
-    image: haleakalaImage,
-    parkCode: "hale",
+    name: "Zion",
+    image: zionImage,
+    parkCode: "zion",
+  },
+  {
+    name: "Grand Teton",
+    image: grandTetonImage,
+    parkCode: "grte",
+  },
+  {
+    name: "Yosemite",
+    image: yosemiteImage,
+    parkCode: "yose",
+  },
+  {
+    name: "Denali",
+    image: denaliImage,
+    parkCode: "dena",
   },
 ];

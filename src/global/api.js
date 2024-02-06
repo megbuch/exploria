@@ -29,16 +29,9 @@ const request = async (url, params = {}) => {
     };
 
     const response = await fetch(fullUrl, { headers });
-
-    if (!response.ok) {
-      // TODO: Return an error/display toast.
-      throw new Error();
-    }
-
     return response.json();
   } catch (error) {
     console.error(error);
-    // TODO: Return an error/display toast.
     return null;
   }
 };

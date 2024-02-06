@@ -2,7 +2,7 @@
   position: relative;
   overflow: hidden;
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - var(--navigation-height));
   display: flex;
 
   .carousel-items {
@@ -17,49 +17,77 @@
       align-items: center;
 
       .overlay {
+        z-index: 300;
         position: absolute;
         line-height: 1;
-      }
 
-      .explore {
-        font-size: 2rem;
-        text-transform: lowercase;
-        margin: 0 0 0 16px;
-      }
+        .explore {
+          font-size: 2rem;
+          text-transform: lowercase;
+          margin: 0 0 0 16px;
+        }
 
-      .park-name {
-        font-size: 6rem;
-        text-transform: uppercase;
-        color: white;
+        .park-name {
+          font-size: 6rem;
+          text-transform: uppercase;
+          color: white;
 
-        &:hover {
-          color: var(--accent);
+          &:hover {
+            color: var(--accent);
+          }
         }
       }
 
-      .splash-image {
+      .image-container {
+        position: relative;
         width: 100%;
-        object-fit: cover;
-        object-position: center 60%;
+        height: 100%;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+
+        .overlay {
+          z-index: 200;
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          background-image: radial-gradient(
+            circle,
+            rgba(20, 14, 26, 0.452) 0%,
+            rgba(120, 90, 165, 0) 100%
+          );
+        }
       }
     }
   }
 
-  .carousel-button {
+  .indicators-container {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    z-index: 2;
+    bottom: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    width: 100%;
 
-    &.prev {
-      left: 10px;
+    .indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 8px;
+      background-color: rgba(255, 255, 255, 0.514);
+
+      &:hover {
+        background-color: white;
+        cursor: pointer;
+      }
     }
 
-    &.next {
-      right: 10px;
+    .active {
+      background-color: white;
     }
   }
 }

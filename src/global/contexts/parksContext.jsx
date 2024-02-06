@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
-import { getParks } from "../global/api";
-import { ParksContext } from "../contexts/ParksContext";
+import { createContext, useState, useEffect } from "react";
+import { getParks } from "../api";
+
+export const ParksContext = createContext({ parks: [], loading: true });
 
 export const ParksProvider = ({ children }) => {
   const [parks, setParks] = useState([]);
@@ -21,8 +22,11 @@ export const ParksProvider = ({ children }) => {
     fetchParks();
   }, []);
 
-  const value = { parks, loading };
+  const contextStore = { parks, loading };
+
   return (
-    <ParksContext.Provider value={value}>{children}</ParksContext.Provider>
+    <ParksContext.Provider value={contextStore}>
+      {children}
+    </ParksContext.Provider>
   );
 };
