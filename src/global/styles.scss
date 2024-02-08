@@ -5,7 +5,8 @@
   --black: #000;
   --gray: rgb(170, 170, 170);
   --gray-transparent: rgba(177, 177, 177, 0.062);
-  --background: rgb(26, 27, 31);
+  // --background: rgb(26, 27, 31);
+  --background: rgb(36, 39, 51);
   --accent: rgb(109, 123, 255);
   --accent-bright: rgb(74, 92, 255);
   --accent-transparent: rgba(85, 102, 255, 0.733);
@@ -16,7 +17,10 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
+  --neutral-dark: rgb(56, 66, 109);
   --navigation-height: 48px;
+  --body-sm: 12px;
+  --body-md: 15px;
 }
 
 * {
@@ -35,7 +39,7 @@ body {
   font-family: "Libre Franklin", Inter, system-ui, Avenir, Helvetica, Arial,
     sans-serif;
   font-size: 17px;
-  font-weight: 300;
+  font-weight: 500;
   line-height: 1.6;
   background-color: var(--background);
   color: var(--white);
@@ -75,11 +79,13 @@ h4 {
 
 button {
   border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
   font-size: 1rem;
+  line-height: 0;
   font-family: inherit;
-  background-color: var(--accent-transparent);
+  background-color: var(--neutral-dark);
   color: var(--white);
   cursor: pointer;
   text-transform: lowercase;
@@ -100,4 +106,10 @@ button {
 
 ul {
   list-style: none;
+}
+
+.page {
+  width: 75vw;
+  padding: 4rem 0;
+  margin: 0 auto;
 }

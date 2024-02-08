@@ -1,36 +1,51 @@
 #ParksIndex {
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: center;
-  // align-items: center;
-  // width: 80%;
-
-  a,
-  a:hover {
+  a {
     color: var(--white);
   }
 
-  .search-instructions {
+  .header {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 8px;
+    margin-bottom: 24px;
+    padding-left: 36px;
 
-    .inputs {
+    .inputs-nav-container {
       display: flex;
-      flex-direction: row;
-      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
 
-      div {
+      .inputs {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+
+        div {
+          display: flex;
+          flex-direction: column;
+        }
+
+        input {
+          width: 280px;
+          padding: 8px;
+          margin-top: 8px;
+          font-size: var(--body-md);
+          font-family: "Libre Franklin", Inter, system-ui, Avenir, Helvetica,
+            Arial, sans-serif;
+          border-radius: 3px;
+          border: none;
+        }
+
+        label {
+          font-size: var(--body-sm);
+          margin-top: 4px;
+        }
       }
 
-      input {
-        padding: 0.2rem;
-        margin: 0.2rem 0rem;
-        font-size: 1.6rem;
-        font-family: "Libre Franklin", Inter, system-ui, Avenir, Helvetica,
-          Arial, sans-serif;
+      .nav {
+        display: flex;
+        gap: 8px;
       }
     }
   }
@@ -41,34 +56,31 @@
     gap: 1rem;
     justify-content: center;
     align-items: center;
-    width: 100%;
   }
 
-  .park-element {
-    height: 20rem;
-    width: 25rem;
-    transition: 100ms ease-out;
-    box-shadow: 0 1px 8px 1px #000000cb;
-
-    &:hover {
-      transform: scale(1.01);
-      box-shadow: 0 2px 8px 2px #000000cb;
-    }
+  .park-card {
+    width: 18vw;
 
     img {
+      border-radius: 3px;
       width: 100%;
-      height: 70%;
+      height: 200px;
       object-fit: cover;
       overflow: hidden;
     }
 
     .content {
-      height: 25%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      margin: 0 1rem 0 1rem;
+      height: 100px;
+
+      .name {
+        font-size: var(--body-md);
+        margin-top: 8px;
+      }
+
+      .state {
+        font-size: var(--body-sm);
+        margin-top: 4px;
+      }
     }
   }
 }
