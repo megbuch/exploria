@@ -19,12 +19,13 @@
       .overlay {
         z-index: 300;
         position: absolute;
+        top: calc(50% - var(--navigation-height));
         line-height: 1;
 
         .explore {
           font-size: 2rem;
           text-transform: lowercase;
-          margin: 0 0 0 16px;
+          margin: 0 0 0 var(--margin-lg);
         }
 
         .park-name {
@@ -33,7 +34,7 @@
           color: white;
 
           &:hover {
-            color: var(--accent);
+            letter-spacing: 2px;
           }
         }
       }
@@ -88,6 +89,47 @@
 
     .active {
       background-color: white;
+    }
+  }
+
+  @media only screen and (max-width: 800px) {
+    .carousel-items {
+      .carousel-item {
+        .overlay {
+          .explore {
+            font-size: 1.4rem;
+          }
+          .park-name {
+            font-size: 4rem;
+          }
+        }
+      }
+    }
+
+    .indicators-container {
+      width: 100%;
+      gap: 1.6rem;
+
+      .indicator {
+        width: 10px;
+        height: 10px;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    .carousel-items {
+      .carousel-item {
+        .overlay {
+          line-height: 1.1;
+          .explore {
+            font-size: 1rem;
+          }
+          .park-name {
+            font-size: 2.5rem;
+          }
+        }
+      }
     }
   }
 }

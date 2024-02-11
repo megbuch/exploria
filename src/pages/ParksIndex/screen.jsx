@@ -52,12 +52,12 @@ export const ParksIndex = (props) => {
           <div className="nav">
             {currentPage > 1 && (
               <button onClick={onPreviousPage}>
-                <IoCaretBack style={{ verticalAlign: "middle" }} />
+                <IoCaretBack />
               </button>
             )}
             {currentPage < totalPages && (
               <button onClick={onNextPage}>
-                <IoCaretForward style={{ verticalAlign: "middle" }} />
+                <IoCaretForward />
               </button>
             )}
           </div>

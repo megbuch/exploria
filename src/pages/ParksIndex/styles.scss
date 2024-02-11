@@ -7,8 +7,8 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    margin-bottom: 24px;
-    padding-left: 36px;
+    margin-bottom: var(--margin-xl);
+    padding-left: var(--pad-xl);
 
     .inputs-nav-container {
       display: flex;
@@ -28,8 +28,8 @@
 
         input {
           width: 280px;
-          padding: 8px;
-          margin-top: 8px;
+          padding: var(--pad-md);
+          margin-top: var(--margin-md);
           font-size: var(--body-md);
           font-family: "Libre Franklin", Inter, system-ui, Avenir, Helvetica,
             Arial, sans-serif;
@@ -39,7 +39,7 @@
 
         label {
           font-size: var(--body-sm);
-          margin-top: 4px;
+          margin-top: var(--margin-sm);
         }
       }
 
@@ -54,7 +54,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
   }
 
@@ -74,13 +74,31 @@
 
       .name {
         font-size: var(--body-md);
-        margin-top: 8px;
+        margin-top: var(--margin-md);
       }
 
       .state {
         font-size: var(--body-sm);
-        margin-top: 4px;
+        margin-top: var(--margin-sm);
       }
+    }
+  }
+
+  @media only screen and (max-width: 1200px) {
+    .header {
+      padding-left: var(--pad-lg);
+
+      .inputs-nav-container {
+        .inputs {
+          input {
+            width: 160px;
+          }
+        }
+      }
+    }
+
+    .park-card {
+      width: 40vw;
     }
   }
 }

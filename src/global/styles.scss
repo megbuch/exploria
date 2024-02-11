@@ -1,26 +1,41 @@
 @import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;200;300;400;500;600;700;800;900&display=swap");
 :root {
-  // TODO: Use Google Material naming conventions (primary, on-primary, surface, etc)
-  --white: #fff;
-  --black: #000;
-  --gray: rgb(170, 170, 170);
-  --gray-transparent: rgba(177, 177, 177, 0.062);
-  // --background: rgb(26, 27, 31);
-  --background: rgb(36, 39, 51);
-  --accent: rgb(109, 123, 255);
-  --accent-bright: rgb(74, 92, 255);
-  --accent-transparent: rgba(85, 102, 255, 0.733);
-  --links: rgb(165, 185, 243);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
-  --neutral-dark: rgb(56, 66, 109);
-  --navigation-height: 48px;
+  // Colors
+  --color-background: rgb(36, 39, 51);
+  --color-on-background: white;
+  --color-surface: white;
+  --color-on-surface: black;
+  --color-primary: rgb(56, 66, 109);
+  --color-on-primary: white;
+  --color-secondary: rgb(71, 96, 209);
+  --color-on-secondary: white;
+  --color-neutral: rgb(255, 241, 206);
+  --color-on-neutral: white;
+
+  // Text sizes
   --body-sm: 12px;
   --body-md: 15px;
+
+  // Padding sizes
+  --pad-sm: 4px;
+  --pad-md: 8px;
+  --pad-lg: 16px;
+  --pad-xl: 36px;
+
+  // Margin sizes
+  --margin-sm: 4px;
+  --margin-md: 8px;
+  --margin-lg: 16px;
+  --margin-xl: 36px;
+
+  // Other
+  --navigation-height: 48px;
 }
 
 * {
@@ -41,19 +56,19 @@ body {
   font-size: 17px;
   font-weight: 500;
   line-height: 1.6;
-  background-color: var(--background);
-  color: var(--white);
+  background-color: var(--color-background);
+  color: var(--color-on-background);
 }
 
 a {
   font-weight: 500;
-  color: var(--links);
+  color: var(--color-primary);
   text-decoration: none;
   text-transform: lowercase;
   transition: 500ms ease-in-out;
 
   &:hover {
-    color: var(--accent);
+    color: var(--color-secondary);
   }
 }
 
@@ -85,8 +100,8 @@ button {
   font-size: 1rem;
   line-height: 0;
   font-family: inherit;
-  background-color: var(--neutral-dark);
-  color: var(--white);
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
   cursor: pointer;
   text-transform: lowercase;
   transition: 500ms ease-in-out;
@@ -96,11 +111,7 @@ button {
   }
 
   &:hover {
-    background-color: var(--accent-bright);
-
-    a {
-      color: white;
-    }
+    background-color: var(--color-primary);
   }
 }
 
@@ -113,3 +124,22 @@ ul {
   padding: 4rem 0;
   margin: 0 auto;
 }
+
+@media only screen and (max-width: 1200px) {
+  .page {
+    width: 90vw;
+    padding: 2rem 0;
+  }
+
+  h1 {
+    font-size: 2.8rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+}
+
+// .react-icons {
+//   vertical-align: middle;
+// }
