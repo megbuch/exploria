@@ -35,7 +35,7 @@ export const ParkDetails = (props) => {
       <Carousel items={processParkImages(park)} overlay={false} />
       <div className="page-content" id="ParkDetails">
         <Link to={`/parks?state=${state}&keyword=${keyword}&page=${page}`}>
-          <IoCaretBack />
+          Back to your search
         </Link>
         <h1>{park.fullName}</h1>
         <p className="states">
