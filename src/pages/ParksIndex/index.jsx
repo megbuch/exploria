@@ -61,7 +61,7 @@ export const ParksIndex = () => {
     state && setStateInput(queryParams.get("state"));
     keyword && setKeywordInput(queryParams.get("keyword"));
     page && goToPage(queryParams.get("page"));
-  }, [goToPage, location.search]);
+  }, []);
 
   // Handle input changes.
   const handleInputChange = (event) => {
