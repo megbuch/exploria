@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Carousel } from "../../components/Carousel/index";
 import { mapStateCodeToName } from "../../data/stateMap";
