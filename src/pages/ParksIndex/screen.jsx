@@ -6,6 +6,7 @@ import "./styles.scss";
 export const ParksIndex = (props) => {
   const {
     loading,
+    resultsSize,
     stateInput,
     keywordInput,
     onInputChange,
@@ -26,6 +27,7 @@ export const ParksIndex = (props) => {
       <div className="header">
         <h1>Explore Parks</h1>
         <h2>Search by state and keyword.</h2>
+        <p>{`${resultsSize} results`}</p>
         <div className="inputs-nav-container">
           <div className="inputs">
             <div>
@@ -65,7 +67,12 @@ export const ParksIndex = (props) => {
       </div>
       <div className="parks-list">
         {displayedParks.map((park) => (
-          <Link to={`/parks/${park.parkCode}`} key={park.id}>
+          <Link
+            to={`/parks/${park.parkCode}?state=${encodeURIComponent(
+              stateInput
+            )}&keyword=${encodeURIComponent(keywordInput)}&page=${currentPage}`}
+            key={park.id}
+          >
             <div className="park-card">
               <img
                 key={park.id}

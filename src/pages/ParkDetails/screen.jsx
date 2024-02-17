@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Carousel } from "../../components/Carousel/index";
 import { mapStateCodeToName } from "../../data/stateMap";
 import { IoCaretForward } from "react-icons/io5";
@@ -16,6 +17,11 @@ export const ParkDetails = (props) => {
     onPreviousPage,
     onNextPage,
   } = props;
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const state = queryParams.get("state");
+  const keyword = queryParams.get("keyword");
+  const page = queryParams.get("page") || 1;
 
   const processParkImages = (park) => {
     return park.images.map((image) => ({ image: image.url }));
@@ -29,6 +35,9 @@ export const ParkDetails = (props) => {
     <>
       <Carousel items={processParkImages(park)} overlay={false} />
       <div className="page-content" id="ParkDetails">
+        <Link to={`/parks?state=${state}&keyword=${keyword}&page=${page}`}>
+          <IoCaretBack />
+        </Link>
         <h1>{park.fullName}</h1>
         <p className="states">
           {park.states
@@ -38,9 +47,9 @@ export const ParkDetails = (props) => {
         </p>
         <p>{park.description}</p>
         {displayedActivities.length > 0 && (
-          <div className="things-to-do">
+          <div className="surface-ctr">
             <div className="row">
-              <h3>Things To Do</h3>
+              <h2>Things To Do</h2>
               <div className="nav">
                 {currentPage > 1 && (
                   <button className="icon flat" onClick={onPreviousPage}>
@@ -55,7 +64,7 @@ export const ParkDetails = (props) => {
               </div>
             </div>
             {displayedActivities.map((activity) => (
-              <div className="things-to-do-element" key={activity.id}>
+              <div key={activity.id}>
                 <a href={activity.url} target="_blank" rel="noreferrer">
                   <h4>{activity.title}</h4>
                 </a>
@@ -65,7 +74,7 @@ export const ParkDetails = (props) => {
           </div>
         )}
         <div className="activities">
-          <h3>Activities</h3>
+          <h2>Activities</h2>
           <ul>
             {park.activities
               .sort((a, b) => {
@@ -77,16 +86,16 @@ export const ParkDetails = (props) => {
           </ul>
         </div>
         <div>
-          <h3>Weather</h3>
+          <h2>Weather</h2>
           <p>{park.weatherInfo}</p>
         </div>
         <div>
-          <h3>Address</h3>
+          <h2>Address</h2>
           <p>{park.addresses[0].line1}</p>
           <p>{`${park.addresses[0].city}, ${park.addresses[0].stateCode} ${park.addresses[0].postalCode}`}</p>
         </div>
         <div>
-          <h3>Directions</h3>
+          <h2>Directions</h2>
           <p>{park.directionsInfo}</p>
           <a href={park.directionsUrl} target="_blank" rel="noreferrer">
             More directions information

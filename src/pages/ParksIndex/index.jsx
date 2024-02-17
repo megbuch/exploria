@@ -1,15 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { useParks } from "../../global/hooks/useParks";
 import { usePagination } from "../../global/hooks/usePagination";
 import { mapStateCodeToName } from "../../data/stateMap";
 import { ParksIndex as Screen } from "./screen";
 
 export const ParksIndex = () => {
+  const location = useLocation();
   const { parks, loading } = useParks();
   const [stateInput, setStateInput] = useState("");
   const [keywordInput, setKeywordInput] = useState("");
-
-  // TODO: Need to store the current page and filter, and if someone returns from details, go to the page with the filter..
 
   // Check if inputs match a park.
   const isStateMatch = (park, state) => {
@@ -38,6 +38,8 @@ export const ParksIndex = () => {
     return matchesState && matchesSearch;
   });
 
+  // const filteredParks = parks;
+
   // Pagination setup.
   const parksPerPage = 12;
   const {
@@ -48,6 +50,18 @@ export const ParksIndex = () => {
     goToPreviousPage,
     goToPage,
   } = usePagination(filteredParks, parksPerPage);
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const state = queryParams.get("state");
+    const keyword = queryParams.get("keyword");
+    const page = parseInt(queryParams.get("page"), 10);
+    if (!state && !keyword) return;
+
+    state && setStateInput(queryParams.get("state"));
+    keyword && setKeywordInput(queryParams.get("keyword"));
+    page && goToPage(queryParams.get("page"));
+  }, []);
 
   // Handle input changes.
   const handleInputChange = (event) => {
@@ -60,14 +74,18 @@ export const ParksIndex = () => {
   return (
     <Screen
       loading={loading}
+      resultsSize={filteredParks.length}
       stateInput={stateInput}
+      setStateInput={setStateInput}
       keywordInput={keywordInput}
+      setKeywordInput={setKeywordInput}
       onInputChange={handleInputChange}
       displayedParks={displayedParks}
       currentPage={currentPage}
       totalPages={totalPages}
       onPreviousPage={goToPreviousPage}
       onNextPage={goToNextPage}
+      goToPage={goToPage}
       mapStateCodeToName={mapStateCodeToName}
     />
   );

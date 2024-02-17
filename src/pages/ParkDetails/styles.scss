@@ -7,15 +7,7 @@
     font-size: var(--body-sm);
   }
 
-  .things-to-do {
-    background-color: var(--color-surface);
-    color: var(--color-on-surface);
-    border-radius: var(--corner-radius);
-    padding: var(--pad-xl);
-    display: flex;
-    flex-direction: column;
-    gap: var(--pad-lg);
-
+  .surface-ctr {
     .row {
       display: flex;
       justify-content: space-between;

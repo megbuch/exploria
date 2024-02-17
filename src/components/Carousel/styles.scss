@@ -23,13 +23,13 @@
         line-height: 1;
 
         .explore {
-          font-size: var(--hero-sm);
+          font-size: var(--title-sm);
           text-transform: lowercase;
           margin: 0 0 0 var(--margin-lg);
         }
 
         .park-name {
-          font-size: var(--hero-lg);
+          font-size: var(--title-lg);
           text-transform: uppercase;
           color: white;
 
@@ -97,10 +97,10 @@
       .carousel-item {
         .overlay {
           .explore {
-            font-size: var(--hero-xs);
+            font-size: var(--title-xs);
           }
           .park-name {
-            font-size: var(--hero-md);
+            font-size: var(--title-md);
           }
         }
       }
@@ -124,7 +124,7 @@
             font-size: var(--body-lg);
           }
           .park-name {
-            font-size: var(--hero-sm);
+            font-size: var(--title-sm);
           }
         }
       }
