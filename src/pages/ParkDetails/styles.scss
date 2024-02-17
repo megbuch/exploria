@@ -1,72 +1,40 @@
 #ParkDetails {
-  h1 {
-    font-size: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pad-xl);
+
+  .states {
+    font-size: var(--body-sm);
   }
 
-  .location {
-    color: var(--gray);
-    margin-top: -1.5rem;
-  }
-
-  a {
-    cursor: pointer;
-    margin-top: 0.7rem;
-    display: block;
-  }
-
-  .carousel {
-    max-width: 100%;
-    max-height: 60vh;
-    margin: 1rem auto;
-
-    img {
-      max-width: 100%;
-      max-height: 60vh;
-      object-fit: cover;
-    }
-  }
-
-  .about {
-    p {
-      font-size: 2rem;
-    }
-  }
-
-  .things-to-do-element {
-    margin: 1rem 0;
-  }
-
-  .pagination {
+  .things-to-do {
+    background-color: var(--color-surface);
+    color: var(--color-on-surface);
+    border-radius: var(--corner-radius);
+    padding: var(--pad-xl);
     display: flex;
-    gap: 10px;
+    flex-direction: column;
+    gap: var(--pad-lg);
 
-    .disabled {
-      background-color: var(--gray-transparent);
-      cursor: initial;
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
   }
 
-  .activities-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
+  .activities {
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--pad-md);
 
-    li {
-      padding: 2px 10px;
-      border-radius: 4px;
-      color: white;
-      background-color: var(--accent);
-      font-size: 0.9rem;
-    }
-  }
-
-  .plan-your-visit {
-    padding: 1.5rem 2rem;
-    width: 30%;
-    margin: 1rem auto;
-
-    a {
-      margin: 0;
+      li {
+        font-size: var(--body-sm);
+        background-color: var(--color-surface);
+        padding: var(--pad-sm) var(--pad-lg);
+        border-radius: var(--corner-radius);
+      }
     }
   }
 }

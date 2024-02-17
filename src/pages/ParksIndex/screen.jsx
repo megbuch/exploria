@@ -22,7 +22,7 @@ export const ParksIndex = (props) => {
   }
 
   return (
-    <div className="page" id="ParksIndex">
+    <div className="page-content" id="ParksIndex">
       <div className="header">
         <h1>Explore Parks</h1>
         <h2>Search by state and keyword.</h2>
@@ -51,12 +51,12 @@ export const ParksIndex = (props) => {
           </div>
           <div className="nav">
             {currentPage > 1 && (
-              <button onClick={onPreviousPage}>
+              <button className="icon flat" onClick={onPreviousPage}>
                 <IoCaretBack />
               </button>
             )}
             {currentPage < totalPages && (
-              <button onClick={onNextPage}>
+              <button className="icon flat" onClick={onNextPage}>
                 <IoCaretForward />
               </button>
             )}
@@ -79,7 +79,7 @@ export const ParksIndex = (props) => {
                   {park.states
                     .split(",")
                     .map((code) => mapStateCodeToName(code))
-                    .join(`, `)}
+                    .join(", ")}
                 </p>
               </div>
             </div>

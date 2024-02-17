@@ -3,17 +3,17 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  background-color: white;
+  background-color: var(--color-surface);
   height: var(--navigation-height);
   padding: 0 var(--pad-xl);
 
   ul {
     display: flex;
     flex-direction: row;
-    gap: 3rem;
+    gap: var(--pad-xl);
   }
 
   p {
-    color: black;
+    color: var(--color-primary);
   }
 }

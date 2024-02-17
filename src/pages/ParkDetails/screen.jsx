@@ -1,4 +1,8 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { Carousel } from "../../components/Carousel/index";
+import { mapStateCodeToName } from "../../data/stateMap";
+import { IoCaretForward } from "react-icons/io5";
+import { IoCaretBack } from "react-icons/io5";
 import "./styles.scss";
 
 export const ParkDetails = (props) => {
@@ -13,91 +17,90 @@ export const ParkDetails = (props) => {
     onNextPage,
   } = props;
 
-  const navigate = useNavigate();
+  const processParkImages = (park) => {
+    return park.images.map((image) => ({ image: image.url }));
+  };
 
   if (loading) {
     return <p>Loading...</p>; // TODO: Use loading spinner.
   }
 
   return (
-    <div id="ParkDetails">
-      <button
-        onClick={() => {
-          navigate(-1);
-        }}
-      >
-        Back
-      </button>
-      <h1>{park.fullName}</h1>
-      <p className="location">{park.states.split(",").join(", ")}</p>
-      {/* <p className="location">{`${park.addresses[0].city}, ${park.addresses[0].stateCode}`}</p> */}
-      {/* TODO Add images. (park.images) */}
-      <div className="about">
-        {/* <h3>About {park.name}</h3> */}
+    <>
+      <Carousel items={processParkImages(park)} overlay={false} />
+      <div className="page-content" id="ParkDetails">
+        <h1>{park.fullName}</h1>
+        <p className="states">
+          {park.states
+            .split(",")
+            .map((state) => mapStateCodeToName(state))
+            .join(", ")}
+        </p>
         <p>{park.description}</p>
-      </div>
-      {displayedActivities.length > 0 && (
-        <div>
-          <h3>Things To Do</h3>
-          <div>
-            <div className="things-to-do-list">
-              {displayedActivities.map((activity) => (
-                <div className="things-to-do-element" key={activity.id}>
-                  <a href={activity.url} target="_blank" rel="noreferrer">
-                    <h4>{activity.title}</h4>
-                  </a>
-                  <p>{activity.shortDescription}</p>
-                </div>
-              ))}
+        {displayedActivities.length > 0 && (
+          <div className="things-to-do">
+            <div className="row">
+              <h3>Things To Do</h3>
+              <div className="nav">
+                {currentPage > 1 && (
+                  <button className="icon flat" onClick={onPreviousPage}>
+                    <IoCaretBack />
+                  </button>
+                )}
+                {currentPage < totalPages && (
+                  <button className="icon flat" onClick={onNextPage}>
+                    <IoCaretForward />
+                  </button>
+                )}
+              </div>
             </div>
-            <div className="pagination">
-              {currentPage > 1 && (
-                <button onClick={onPreviousPage}>Prev</button>
-              )}
-              {currentPage < totalPages && (
-                <button onClick={onNextPage}>Next</button>
-              )}
-            </div>
+            {displayedActivities.map((activity) => (
+              <div className="things-to-do-element" key={activity.id}>
+                <a href={activity.url} target="_blank" rel="noreferrer">
+                  <h4>{activity.title}</h4>
+                </a>
+                <p>{activity.shortDescription}</p>
+              </div>
+            ))}
           </div>
+        )}
+        <div className="activities">
+          <h3>Activities</h3>
+          <ul>
+            {park.activities
+              .sort((a, b) => {
+                return a.name.localeCompare(b.name);
+              })
+              .map((activity) => {
+                return <li key={activity.id}>{activity.name}</li>;
+              })}
+          </ul>
         </div>
-      )}
-      <div>
-        <h3>Activities</h3>
-        <ul className="activities-list">
-          {park.activities
-            .sort((a, b) => {
-              return a.name.localeCompare(b.name);
-            })
-            .map((activity) => {
-              return <li key={activity.id}>{activity.name}</li>;
-            })}
-        </ul>
-      </div>
-      <div>
-        <h3>Weather</h3>
-        <p>{park.weatherInfo}</p>
-      </div>
-      <div>
-        <h3>Address</h3>
-        <p>{park.addresses[0].line1}</p>
-        <p>{`${park.addresses[0].city}, ${park.addresses[0].stateCode} ${park.addresses[0].postalCode}`}</p>
-      </div>
-      <div>
-        <h3>Directions</h3>
-        <p>{park.directionsInfo}</p>
-        <a href={park.directionsUrl} target="_blank" rel="noreferrer">
-          More directions information
-        </a>
-      </div>
-      <button className="plan-your-visit">
-        <a
-          href={`https://www.nps.gov/${parkCode}/planyourvisit/index.htm`}
+        <div>
+          <h3>Weather</h3>
+          <p>{park.weatherInfo}</p>
+        </div>
+        <div>
+          <h3>Address</h3>
+          <p>{park.addresses[0].line1}</p>
+          <p>{`${park.addresses[0].city}, ${park.addresses[0].stateCode} ${park.addresses[0].postalCode}`}</p>
+        </div>
+        <div>
+          <h3>Directions</h3>
+          <p>{park.directionsInfo}</p>
+          <a href={park.directionsUrl} target="_blank" rel="noreferrer">
+            More directions information
+          </a>
+        </div>
+        <Link
+          to={`https://www.nps.gov/${parkCode}/planyourvisit/index.htm`}
+          key={park.id}
           target="_blank"
-          rel="noreferrer"
+          className="button"
         >
           Plan Your Visit
-        </a>
-      </button>
-    </div>
+        </Link>
+      </div>
+    </>
   );
 };

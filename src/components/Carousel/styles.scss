@@ -2,7 +2,7 @@
   position: relative;
   overflow: hidden;
   width: 100vw;
-  height: calc(100vh - var(--navigation-height));
+  height: calc(var(--carouselheight) - var(--navigation-height));
   display: flex;
 
   .carousel-items {
@@ -11,25 +11,25 @@
 
     .carousel-item {
       width: 100vw;
-      height: 100vh;
+      height: var(--carousel-height);
       display: flex;
       justify-content: center;
       align-items: center;
 
       .overlay {
-        z-index: 300;
+        z-index: var(--level-2);
         position: absolute;
         top: calc(50% - var(--navigation-height));
         line-height: 1;
 
         .explore {
-          font-size: 2rem;
+          font-size: var(--hero-sm);
           text-transform: lowercase;
           margin: 0 0 0 var(--margin-lg);
         }
 
         .park-name {
-          font-size: 6rem;
+          font-size: var(--hero-lg);
           text-transform: uppercase;
           color: white;
 
@@ -50,7 +50,7 @@
         }
 
         .overlay {
-          z-index: 200;
+          z-index: var(--level-1);
           width: 100%;
           height: 100%;
           position: absolute;
@@ -76,9 +76,9 @@
     width: 100%;
 
     .indicator {
-      width: 12px;
-      height: 12px;
-      border-radius: 8px;
+      width: var(--indicator-height-md);
+      height: var(--indicator-height-md);
+      border-radius: 50%;
       background-color: rgba(255, 255, 255, 0.514);
 
       &:hover {
@@ -92,41 +92,39 @@
     }
   }
 
-  @media only screen and (max-width: 800px) {
+  @media only screen and (max-width: 830px) {
     .carousel-items {
       .carousel-item {
         .overlay {
           .explore {
-            font-size: 1.4rem;
+            font-size: var(--hero-xs);
           }
           .park-name {
-            font-size: 4rem;
+            font-size: var(--hero-md);
           }
         }
       }
     }
 
     .indicators-container {
-      width: 100%;
-      gap: 1.6rem;
+      gap: var(--pad-xl);
 
       .indicator {
-        width: 10px;
-        height: 10px;
+        width: var(--indicator-height-sm);
+        height: var(--indicator-height-sm);
       }
     }
   }
 
-  @media only screen and (max-width: 500px) {
+  @media only screen and (max-width: 550px) {
     .carousel-items {
       .carousel-item {
         .overlay {
-          line-height: 1.1;
           .explore {
-            font-size: 1rem;
+            font-size: var(--body-lg);
           }
           .park-name {
-            font-size: 2.5rem;
+            font-size: var(--hero-sm);
           }
         }
       }
