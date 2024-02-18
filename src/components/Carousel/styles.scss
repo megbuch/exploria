@@ -21,6 +21,7 @@
         position: absolute;
         top: calc(50% - var(--navigation-height));
         line-height: 1;
+        user-select: none;
 
         .park-name {
           text-transform: uppercase;
