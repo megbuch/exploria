@@ -56,11 +56,11 @@ export const ParksIndex = () => {
     const state = queryParams.get("state");
     const keyword = queryParams.get("keyword");
     const page = parseInt(queryParams.get("page"), 10);
-    if (!state && !keyword) return;
+    page && goToPage(queryParams.get("page"));
 
+    if (!state && !keyword) return;
     state && setStateInput(queryParams.get("state"));
     keyword && setKeywordInput(queryParams.get("keyword"));
-    page && goToPage(queryParams.get("page"));
   }, []);
 
   // Handle input changes.
