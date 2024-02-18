@@ -22,19 +22,12 @@
         top: calc(50% - var(--navigation-height));
         line-height: 1;
 
-        .explore {
-          font-size: var(--title-sm);
-          text-transform: lowercase;
-          margin: 0 0 0 var(--margin-lg);
-        }
-
         .park-name {
-          font-size: var(--title-lg);
           text-transform: uppercase;
           color: white;
 
           &:hover {
-            letter-spacing: 2px;
+            letter-spacing: 1px;
           }
         }
       }
@@ -72,7 +65,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 3rem;
+    gap: var(--pad-xl);
     width: 100%;
 
     .indicator {
@@ -80,6 +73,11 @@
       height: var(--indicator-height-md);
       border-radius: 50%;
       background-color: rgba(255, 255, 255, 0.514);
+
+      @media only screen and (max-width: 830px) {
+        width: var(--indicator-height-sm);
+        height: var(--indicator-height-sm);
+      }
 
       &:hover {
         background-color: white;
@@ -89,45 +87,6 @@
 
     .active {
       background-color: white;
-    }
-  }
-
-  @media only screen and (max-width: 830px) {
-    .carousel-items {
-      .carousel-item {
-        .overlay {
-          .explore {
-            font-size: var(--title-xs);
-          }
-          .park-name {
-            font-size: var(--title-md);
-          }
-        }
-      }
-    }
-
-    .indicators-container {
-      gap: var(--pad-xl);
-
-      .indicator {
-        width: var(--indicator-height-sm);
-        height: var(--indicator-height-sm);
-      }
-    }
-  }
-
-  @media only screen and (max-width: 550px) {
-    .carousel-items {
-      .carousel-item {
-        .overlay {
-          .explore {
-            font-size: var(--body-lg);
-          }
-          .park-name {
-            font-size: var(--title-sm);
-          }
-        }
-      }
     }
   }
 }

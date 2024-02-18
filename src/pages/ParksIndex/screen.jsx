@@ -66,32 +66,47 @@ export const ParksIndex = (props) => {
         </div>
       </div>
       <div className="parks-list">
-        {displayedParks.map((park) => (
-          <Link
-            to={`/parks/${park.parkCode}?state=${encodeURIComponent(
-              stateInput
-            )}&keyword=${encodeURIComponent(keywordInput)}&page=${currentPage}`}
-            key={park.id}
-          >
-            <div className="park-card">
-              <img
-                key={park.id}
-                src={park.images[0].url}
-                alt={park.fullName}
-                loading="lazy"
-              />
-              <div className="content">
-                <p className="name">{park.fullName}</p>
-                <p className="state">
-                  {park.states
-                    .split(",")
-                    .map((code) => mapStateCodeToName(code))
-                    .join(", ")}
-                </p>
+        {displayedParks.map((park) => {
+          const statesList = park.states
+            .split(",")
+            .map((code) => mapStateCodeToName(code));
+          const displayedStatesCount = 6;
+          const displayedStates =
+            statesList.length > displayedStatesCount
+              ? statesList.slice(0, 6)
+              : statesList;
+          const remainingStateCount =
+            statesList.length > displayedStatesCount
+              ? statesList.length - displayedStatesCount
+              : 0;
+          console.log(statesList.length, displayedStatesCount);
+          return (
+            <Link
+              to={`/parks/${park.parkCode}?state=${encodeURIComponent(
+                stateInput
+              )}&keyword=${encodeURIComponent(
+                keywordInput
+              )}&page=${currentPage}`}
+              key={park.id}
+            >
+              <div className="park-card">
+                <img
+                  key={park.id}
+                  src={park.images[0].url}
+                  alt={park.fullName}
+                  loading="lazy"
+                />
+                <div className="content">
+                  <p className="name">{park.fullName}</p>
+                  <p className="subtitle">{displayedStates.join(", ")}</p>
+                  {statesList.length > displayedStatesCount && (
+                    <p className="subtitle">{` + ${remainingStateCount} more`}</p>
+                  )}
+                </div>
               </div>
-            </div>
-          </Link>
-        ))}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

@@ -33,13 +33,13 @@ export const Carousel = ({ items, overlay }) => {
           <div className="carousel-item" key={index}>
             {overlay && (
               <div className="overlay">
-                <p className="explore">Explore</p>
+                <h2>explore</h2>
                 <Link
                   key={item.parkCode}
                   to={`/parks/${item.parkCode}`}
                   className="park-name"
                 >
-                  {item.name}
+                  <h1>{item.name}</h1>
                 </Link>
               </div>
             )}

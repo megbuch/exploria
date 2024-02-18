@@ -20,7 +20,7 @@
 
   // Text sizes
   --title-xs: 30px;
-  --title-sm: 40px;
+  --title-sm: 50px;
   --title-md: 70px;
   --title-lg: 100px;
   --body-sm: 12px;
@@ -31,13 +31,13 @@
   // Padding sizes
   --pad-sm: 4px;
   --pad-md: 8px;
-  --pad-lg: 16px;
+  --pad-lg: 18px;
   --pad-xl: 24px;
 
   // Margin sizes
   --margin-sm: 4px;
   --margin-md: 8px;
-  --margin-lg: 16px;
+  --margin-lg: 18px;
   --margin-xl: 36px;
 
   // Other
@@ -81,13 +81,22 @@ h1 {
   font-size: var(--title-md);
   font-weight: 100;
   line-height: 1.1;
+  @media only screen and (max-width: 1200px) {
+    font-size: var(--title-sm);
+  }
 }
 
 h2 {
   font-weight: 300;
   font-size: var(--title-xs);
+  @media only screen and (max-width: 1200px) {
+    font-size: var(--body-lg);
+  }
 }
 
+.subtitle {
+  font-size: var(--body-sm);
+}
 a,
 button {
   transition: 500ms ease-in-out;
@@ -142,8 +151,15 @@ ul {
 
 .page-content {
   width: 75vw;
-  padding: 4rem 0;
-  margin: 0 auto;
+  margin: var(--margin-xl) auto;
+
+  @media only screen and (max-width: 1200px) {
+    width: 80vw;
+  }
+
+  @media only screen and (max-width: 800px) {
+    width: 90vw;
+  }
 }
 
 .surface-ctr {
@@ -154,19 +170,4 @@ ul {
   display: flex;
   flex-direction: column;
   gap: var(--pad-lg);
-}
-
-@media only screen and (max-width: 1200px) {
-  .page-content {
-    width: 90vw;
-    padding: 2rem 0;
-  }
-
-  // h1 {
-  //   font-size: 2.8rem;
-  // }
-
-  // h2 {
-  //   font-size: 1.2rem;
-  // }
 }
